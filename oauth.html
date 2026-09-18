@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Authorization Complete — Boise First UCC QuickBooks Integration</title>
+<meta name="description" content="OAuth redirect landing page for the private QuickBooks Online integration operated by Boise First UCC.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<h1>Authorization redirect</h1>
+<p class="sub">Boise First UCC QuickBooks Online integration</p>
+
+<p id="intro">This page receives the result of a QuickBooks Online authorization and displays it so the
+administrator can finish setup on their own computer. Nothing on this page is transmitted anywhere: the
+values below come from your browser's address bar and stay in your browser.</p>
+
+<div id="result"></div>
+
+<noscript><p><strong>JavaScript is disabled.</strong> Copy the full address of this page out of the address
+bar instead — it contains the values needed.</p></noscript>
+
+<nav>
+  <a href="index.html">Integration overview</a>
+  <a href="terms.html">Terms of use</a>
+  <a href="privacy.html">Privacy policy</a>
+</nav>
+<footer>Boise First UCC. QuickBooks and QuickBooks Online are trademarks of Intuit Inc., which does not
+sponsor or endorse this application.</footer>
+
+<script>
+  (function () {
+    var params = new URLSearchParams(window.location.search);
+    var out = document.getElementById("result");
+    var error = params.get("error");
+    var code = params.get("code");
+
+    function block(label, value) {
+      var h = document.createElement("h2");
+      h.textContent = label;
+      var p = document.createElement("p");
+      p.style.cssText = "font-family:ui-monospace,Consolas,monospace;word-break:break-all;" +
+        "border:1px solid var(--rule);border-radius:6px;padding:.75rem;";
+      p.textContent = value;
+      out.appendChild(h);
+      out.appendChild(p);
+    }
+
+    if (error) {
+      block("Authorization failed", error + (params.get("error_description") ? " — " + params.get("error_description") : ""));
+      return;
+    }
+    if (!code) {
+      block("Nothing to show", "Open this page through the QuickBooks authorization link to see a result here.");
+      return;
+    }
+
+    var full = window.location.href;
+    block("Copy this entire line into the setup script", full);
+    block("Authorization code", code);
+    block("Company (realm) ID", params.get("realmId") || "(not provided)");
+
+    var btn = document.createElement("button");
+    btn.textContent = "Copy the full line";
+    btn.style.cssText = "font:inherit;padding:.5rem .9rem;border-radius:6px;border:1px solid var(--rule);cursor:pointer;";
+    btn.onclick = function () {
+      navigator.clipboard.writeText(full).then(
+        function () { btn.textContent = "Copied"; },
+        function () { btn.textContent = "Copy failed — select the line above manually"; }
+      );
+    };
+    out.appendChild(btn);
+
+    var note = document.createElement("p");
+    note.textContent = "This code can only be used once, and it expires within minutes. If setup fails, " +
+      "run the authorization link again to get a fresh one.";
+    out.appendChild(note);
+  })();
+</script>
+</body>
+</html>
