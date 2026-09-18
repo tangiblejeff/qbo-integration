@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>QuickBooks Integration — Boise First UCC</title>
+<meta name="description" content="Information about the private QuickBooks Online integration used by Boise First UCC for internal bookkeeping.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<h1>QuickBooks Online Integration</h1>
+<p class="sub">Boise First UCC — internal bookkeeping tool</p>
+
+<p>This page describes a <strong>private application</strong> used by Boise First UCC to maintain its own
+accounting records in QuickBooks Online. It is not offered to, sold to, or installed by anyone outside our
+organization, and it is not listed in the QuickBooks App Store.</p>
+
+<h2>What it does</h2>
+<ul>
+  <li>Records journal entries for donor-restricted contributions and the spending of restricted funds.</li>
+  <li>Creates vendor bills from invoices we receive, and attaches the invoice document to the bill.</li>
+  <li>Retrieves financial reports, such as the statement of activities and the balance sheet, for month-end review.</li>
+</ul>
+<p>Every entry is reviewed by an authorized person before it is posted. The application does not delete
+records in QuickBooks.</p>
+
+<h2>How it is built and run</h2>
+<p>It is our own build of Intuit's open-source
+<a href="https://github.com/intuit/quickbooks-online-mcp-server">QuickBooks Online MCP server</a>, run as a
+local program on a workstation we control. An AI assistant (Anthropic's Claude), operated by our own staff
+under our own account, calls the application's tools to draft the entries and reports described above.
+There is no public website, no hosted service, and no sign-up: the only user is the QuickBooks company
+administrator who connected the application.</p>
+
+<h2>Connecting and disconnecting</h2>
+<p>Because the application runs locally, there is no web page to sign in to. It is authorized once through
+Intuit's standard OAuth process by our company administrator.</p>
+<p>To disconnect it from a QuickBooks Online company, sign in to QuickBooks Online and go to
+<strong>Settings &rarr; Apps &rarr; My Apps</strong>, then disconnect this application. Access ends
+immediately when the authorization is revoked.</p>
+
+<h2>Contact</h2>
+<p>Questions about this integration, including data and privacy questions, may be sent to
+<a href="mailto:creativework.mbkc@recursor.net">creativework.mbkc@recursor.net</a>.</p>
+
+<nav>
+  <a href="terms.html">Terms of use</a>
+  <a href="privacy.html">Privacy policy</a>
+</nav>
+<footer>Boise First UCC. QuickBooks and QuickBooks Online are trademarks of Intuit Inc., which does not
+sponsor or endorse this application.</footer>
+</body>
+</html>
